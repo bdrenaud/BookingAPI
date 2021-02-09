@@ -9,6 +9,7 @@ namespace Booking.Controllers
 {
     public class ExampleController : Controller
     {
+        public ExampleRequest exampleOne;
         // GET: Example
         public ActionResult Index()
         {
@@ -21,6 +22,24 @@ namespace Booking.Controllers
             model.ReservationTime = DateTime.Now;
 
             return View(model);
+        }
+
+        public ActionResult Establish()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Establish(ExampleRequest model)
+        {
+            this.exampleOne = model;
+            return RedirectToAction("Details");
+        }
+            //*****MAKE THIS WORK FOR HOMEWORK !!!!****
+
+        public ActionResult Details()
+        {
+            return View(this.exampleOne);
         }
     }
 }
