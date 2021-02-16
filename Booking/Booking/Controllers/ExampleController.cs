@@ -10,6 +10,7 @@ namespace Booking.Controllers
     public class ExampleController : Controller
     {
         public ExampleRequest exampleOne;
+
         // GET: Example
         public ActionResult Index()
         {
@@ -32,14 +33,26 @@ namespace Booking.Controllers
         [HttpPost]
         public ActionResult Establish(ExampleRequest model)
         {
-            this.exampleOne = model;
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", new { model });
         }
-            //*****MAKE THIS WORK FOR HOMEWORK !!!!****
+           
 
-        public ActionResult Details()
+        public ActionResult Details(ExampleRequest model)
         {
             return View(this.exampleOne);
         }
+        public ActionResult Upcoming()
+        {
+            var example = new ExampleRequest();
+            var reservations = example.GetCurrentReservations();
+            return View(reservations);
+        }
+        public ActionResult Edit(string name)
+        {
+            ExampleRequest model = new ExampleRequest();
+            var found = model.GetCurrentReservations().Where(x => x.Name == name).FirstOrDefault();
+            return View(found);
+        }
     }
 }
+
